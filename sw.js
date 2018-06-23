@@ -6,7 +6,9 @@ const urlsToCache = [
     'images/logo/logo64x64.png',
     'images/logo/logo128x128.png',
     'images/logo/logo256x256.png',
-    'images/logo/logo512x512.png'
+    'images/logo/logo512x512.png',
+	'fonts/patuaone.woff2',
+	'fonts/robotocondensed.woff2'
 ];
 
 self.addEventListener('install', function(event) {
