@@ -1,0 +1,30 @@
+{
+  "short_name": "Poco Loco!",
+  "name": "Poco Loco!",
+  "icons": [
+    {
+      "src": "/images/logo/logo64x64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/images/logo/logo128x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/images/logo/logo256x256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },{
+      "src": "/images/logo/logo512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "orientation":"portrait-primary",
+  "start_url": "/index.html",
+  "background_color": "white",
+  "display": "standalone",
+  "theme_color": "#64baff"
+}
