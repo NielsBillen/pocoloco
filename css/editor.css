@@ -1,0 +1,36 @@
+#editor {
+    padding: 4px;
+    margin: 8px;
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    overflow: auto;    
+}
+
+form {
+    /*display: grid;
+    /*grid-template-columns: auto auto;*/
+}
+
+fieldset {
+    border: 1px solid var(--border-color);
+    margin: 2px;
+}
+
+legend {
+    font-weight: bolder;
+}
+
+.input-square {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    justify-content: center;
+    grid-column-gap: 4px;
+}
+
+input[type="image"] {
+    background-color:white;
+    border: 1px solid var(--border-color);
+    margin: 2px;
+    padding: 2px;
+}

@@ -1,0 +1,87 @@
+#toolbar-wrapper {
+    background-color: var(--background-light);
+    
+    padding-top: 4px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#toolbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    align-items: flex-start;
+    
+}
+            
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+        
+    max-width: 80px;
+    margin: 0px 2px;
+    box-sizing: content-box;
+    
+    border: 1px solid transparent; 
+    
+    cursor: pointer;
+    
+    transition: background-color 0.5s, border 0.5s;
+}
+
+.tool-item:hover{
+    background-color: rgb(216,230,242);
+    border: 1px solid rgb(192,220,243);
+}
+
+.tool-seperator {
+    border-left: 1px solid rgb(225,225,225);;
+    margin-left: 8px;
+    margin-right: 8px;
+    align-self: stretch;
+}
+            
+.tool-item-icon {
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat
+}
+
+.tool-item-description {
+    text-align: center;
+    margin: 2px 0px;
+    font-size: 12px;
+}
+            
+#new-icon {
+    background-image: url("../images/toolbar/new.png");
+}
+
+#open-icon {
+    background-image: url("../images/toolbar/open.png");
+}
+
+#save-icon {
+    background-image: url("../images/toolbar/save.png");
+}
+
+#saveas-icon {
+    background-image: url("../images/toolbar/saveas.png");
+}
+
+#print-icon {
+    background-image: url("../images/toolbar/print.png");
+}
+
+#png-icon {
+    background-image: url("../images/toolbar/png.png");
+}
+
+#pdf-icon {
+    background-image: url("../images/toolbar/topdf.png");
+}

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="utf-8">
+        
+        <title>Poco Loco! The Mini Loco creator application</title>
+        
+        <meta name="author" value = "Niels Billen">
+        <meta name="description" value = "Een applicatie om snel en eenvoudig mooie Mini Loco's te maken">
+        <meta name="application-name" value = "Poco Loco">
+        <meta name="theme-color" content="#64baff">
+        
+        <link rel="icon" href="images/logo/logo32.png" type="image/png" sizes="64x64">
+        <link rel="manifest" href="/manifest.json">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link type="text/css" href="css/toolbar.css" rel = "stylesheet">
+        <link type="text/css" href="css/editor.css" rel = "stylesheet">
+        
+        <style>
+            :root {
+                --border-color: rgb(171,175,179);
+                --background-dark: rgb(220,220,220);
+                --background-light: rgb(240,240,240);
+            }
+            
+            @font-face{
+                font-family: 'RobotoCondensed';
+                src: url('fonts/robotocondensed.woff2') format('woff2'),
+                     url('fonts/robotocondensed.woff') format('woff'),
+                     url('fonts/robotocondensed.ttf') format('ttf');
+                font-weight: normal;
+                font-style: normal;
+            }
+  
+            
+            html {
+                width: 100%;
+                height: 100%;
+            }
+            
+            body {
+                display: flex;
+                flex-direction: column;
+                
+                font-family: 'RobotoCondensed', sans-serif;
+                font-size: 14px;
+                margin: 0;
+                height: 100vh;
+                
+                color: rgb(68,68,68);
+                background-color: var(--background-dark);
+            }
+            
+            #main {
+                flex: 1;
+                display: flex;
+                flex-direction: row;
+            }
+            
+            #preview {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--background-dark);
+                overflow: hidden;
+            }
+            
+            #preview-canvas {
+                border: 1px solid var(--border-color);
+                box-shadow: 2px 2px 4px var(--border-color);
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "toolbar-wrapper">
+            <div id = "toolbar">
+                <div id ="new" class="tool-item">
+                    <div id ="new-icon" class = "tool-item-icon"></div>
+                    <p class = "tool-item-description">Nieuw</p>
+                </div>
+                <div id ="open" class="tool-item">
+                    <div id ="open-icon" class = "tool-item-icon"></div>
+                    <p class = "tool-item-description">Open</p>
+                </div>
+                <div id ="save" class="tool-item">
+                    <div id ="save-icon" class = "tool-item-icon"></div>
+                    <p class = "tool-item-description">Opslaan</p>
+                </div>
+                <div id ="saveas" class="tool-item">
+                    <div id ="saveas-icon" class = "tool-item-icon"></div>
+                    <p class = "tool-item-description">Opslaan als ...</p>
+                </div>
+                <div class="tool-seperator">
+                </div>
+                <div id ="print" class="tool-item">
+                    <div id ="print-icon" class = "tool-item-icon"></div>
+                    <p class = "tool-item-description">Afdrukken</p>
+                </div>
+                <div id ="pdf" class="tool-item">
+                    <div id ="pdf-icon" class = "tool-item-icon"></div>
+                    <p class = "tool-item-description">Opslaan als PDF...</p>
+                </div>
+                <div id ="png" class="tool-item">
+                    <div id ="png-icon" class = "tool-item-icon"></div>
+                    <p class = "tool-item-description">Opslaan als PNG...</p>
+                </div>
+                <div class="tool-seperator">
+                </div>
+            </div>
+        </div>
+        <div id = "main">
+            <div id ="editor">
+                <form>
+                    <fieldset>
+                        <legend>Vak 1:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-1">Opgave:</label>
+                            <input id = "assigment-1" type="text">
+                            <input id = "assignment-1-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-1-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-1">Antwoord:</label>
+                            <input id ="answer-1" type="text">
+                            <input id ="answer-1-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-1-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 2:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-2">Opgave:</label>
+                            <input id = "assigment-2" type="text">
+                            <input id = "assignment-2-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-2-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-2">Antwoord:</label>
+                            <input id ="answer-2" type="text">
+                            <input id ="answer-2-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-2-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 3:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-3">Opgave:</label>
+                            <input id = "assigment-3" type="text">
+                            <input id = "assignment-3-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-3-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-3">Antwoord:</label>
+                            <input id ="answer-3" type="text">
+                            <input id ="answer-3-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-3-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 4:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-4">Opgave:</label>
+                            <input id = "assigment-4" type="text">
+                            <input id = "assignment-4-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-4-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-4">Antwoord:</label>
+                            <input id ="answer-4" type="text">
+                            <input id ="answer-4-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-4-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 5:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-5">Opgave:</label>
+                            <input id = "assigment-5" type="text">
+                            <input id = "assignment-5-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-5-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-5">Antwoord:</label>
+                            <input id ="answer-5" type="text">
+                            <input id ="answer-5-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-5-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 6:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-6">Opgave:</label>
+                            <input id = "assigment-6" type="text">
+                            <input id = "assignment-6-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-6-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-6">Antwoord:</label>
+                            <input id ="answer-6" type="text">
+                            <input id ="answer-6-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-6-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 7:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-7">Opgave:</label>
+                            <input id = "assigment-7" type="text">
+                            <input id = "assignment-7-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-7-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-7">Antwoord:</label>
+                            <input id ="answer-7" type="text">
+                            <input id ="answer-7-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-7-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 8:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-8">Opgave:</label>
+                            <input id = "assigment-8" type="text">
+                            <input id = "assignment-8-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-8-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-8">Antwoord:</label>
+                            <input id ="answer-8" type="text">
+                            <input id ="answer-8-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-8-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 9:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-9">Opgave:</label>
+                            <input id = "assigment-9" type="text">
+                            <input id = "assignment-9-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-9-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-9">Antwoord:</label>
+                            <input id ="answer-9" type="text">
+                            <input id ="answer-9-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-9-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 10:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-10">Opgave:</label>
+                            <input id = "assigment-10" type="text">
+                            <input id = "assignment-10-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-10-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-10">Antwoord:</label>
+                            <input id ="answer-10" type="text">
+                            <input id ="answer-10-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-10-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 11:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-11">Opgave:</label>
+                            <input id = "assigment-11" type="text">
+                            <input id = "assignment-11-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-11-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-11">Antwoord:</label>
+                            <input id ="answer-11" type="text">
+                            <input id ="answer-11-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-11-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Vak 12:</legend>
+                        <div class = "input-square">
+                            <label for = "assigment-12">Opgave:</label>
+                            <input id = "assigment-12" type="text">
+                            <input id = "assignment-12-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id = "assignment-12-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                            <label for = "answer-12">Antwoord:</label>
+                            <input id ="answer-12" type="text">
+                            <input id ="answer-12-addimage" type = "image" src = "images/toolbar/addimage30.png">
+                            <input id ="answer-12-removeimage" type = "image" src = "images/toolbar/removeimage30.png">
+                        </div>
+                    </fieldset>
+                    
+                </form>
+            </div>
+            <div id ="preview">
+                <canvas id = "canvas"></canvas>
+            </div>
+        </div>
+        
+        <script src = "js/drawing.js"></script>
+    </body>
+</html>

@@ -3,10 +3,14 @@ const CACHE_NAME = "pocoloco";
 const urlsToCache = [
     'index.html',
     'images/screenshot.jpg',
-    'images/logo/logo64x64.png',
-    'images/logo/logo128x128.png',
-    'images/logo/logo256x256.png',
-    'images/logo/logo512x512.png',
+    'images/logo/logo32.png',
+    'images/logo/logo48.png',
+    'images/logo/logo64.png',
+    'images/logo/logo128.png',
+    'images/logo/logo144.png',
+    'images/logo/logo156.png',
+    'images/logo/logo256.png',
+    'images/logo/logo512.png',
 	'fonts/patuaone.woff2',
 	'fonts/robotocondensed.woff2'
 ];
