@@ -1,3 +1,5 @@
+/* export Drawing*/
+
 const Drawing = (function () {
     "use strict";
     
