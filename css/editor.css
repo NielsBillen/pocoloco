@@ -23,6 +23,7 @@ legend {
 .input-square {
     display: grid;
     grid-template-columns: auto 1fr auto auto;
+    grid-row-gap: 8px;
     align-items: center;
     justify-content: center;
     grid-column-gap: 4px;
@@ -33,4 +34,8 @@ input[type="image"] {
     border: 1px solid var(--border-color);
     margin: 2px;
     padding: 2px;
+}
+
+.input-square > label {
+    display: flex;
 }

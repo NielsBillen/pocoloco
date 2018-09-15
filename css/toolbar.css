@@ -59,29 +59,29 @@
 }
             
 #new-icon {
-    background-image: url("../images/toolbar/new.png");
+    background-image: url("../images/icons/80/icons8-file.png");
 }
 
 #open-icon {
-    background-image: url("../images/toolbar/open.png");
+    background-image: url("../images/icons/80/icons8-open.png");
 }
 
 #save-icon {
-    background-image: url("../images/toolbar/save.png");
+    background-image: url("../images/icons/80/icons8-save.png");
 }
 
 #saveas-icon {
-    background-image: url("../images/toolbar/saveas.png");
+    background-image: url("../images/icons/80/icons8-save-as.png");
 }
 
 #print-icon {
-    background-image: url("../images/toolbar/print.png");
+    background-image: url("../images/icons/80/icons8-print.png");
 }
 
 #png-icon {
-    background-image: url("../images/toolbar/png.png");
+    background-image: url("../images/icons/80/icons8-png.png");
 }
 
 #pdf-icon {
-    background-image: url("../images/toolbar/topdf.png");
+    background-image: url("../images/icons/80/icons8-pdf.png");
 }
