@@ -1,5 +1,9 @@
 /* export Drawing*/
 
+/******************************************************************************
+ * A collection of drawing methods and utilities for drawing the Mini Loco
+ *****************************************************************************/
+
 const Drawing = (function () {
     "use strict";
     

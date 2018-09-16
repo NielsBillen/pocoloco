@@ -17,6 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link type="text/css" href="css/toolbar.css" rel = "stylesheet">
+        <link type="text/css" href="css/miniloco.css" rel = "stylesheet">
         <link type="text/css" href="css/editor.css" rel = "stylesheet">
         
         <style>
@@ -119,13 +120,20 @@
                 </form>
             </div>
             <div id ="preview">
-                <canvas id = "canvas"></canvas>
+                <div id = "miniloco">
+                    <div id = "assignment-wrapper" class = "square-wrapper">
+                    </div>
+                </div>
+                <!--<canvas id = "canvas"></canvas>-->
             </div>
         </div>
         
+        <script src = "js/build.js"></script>
+        <script src = "js/print.js"></script>
+        <!--
         <script src = "js/miniloco.js"></script>
         <script src = "js/init.js"></script>
         <script src = "js/drawing.js"></script>
-        <script src = "js/callback.js"></script>
+        <script src = "js/callback.js"></script>-->
     </body>
 </html>
