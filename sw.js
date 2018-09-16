@@ -11,6 +11,7 @@ const urlsToCache = [
     'images/logo/logo156.png',
     'images/logo/logo256.png',
     'images/logo/logo512.png',
+    'images/tic-tac-toe.png',
 	'fonts/patuaone.woff2',
 	'fonts/robotocondensed.woff2'
 ];
