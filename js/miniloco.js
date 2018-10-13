@@ -54,7 +54,7 @@ const MiniLoco = (function () {
         }
     }
     
-     /**
+    /**
      * Sets the assignment text of square 'i' to the given text, where
      * i is in the interval [1, 12].
      *
@@ -100,13 +100,51 @@ const MiniLoco = (function () {
      * @param text
      *      the value for the assignemnt.
      */
+    my.SetAnswerImage = function (i, image)  {
+        const j = i - 1;
+        const old = answerImages[j];
+        answerImages[j] = image;
+        
+        Drawing.DrawAnswer(i);
+    };
+    
+    /**
+     */
+    my.HasAnswerImage = function (i) {
+        return my.GetAnswerImage(i) !== null;
+    }
+    
+    /**
+     * Returns the assignment text of square 'i', where 'i' is in the
+     * interval [1, 12].
+     *
+     * @param i
+     *      the index of the assignment (in the range [1, 12]).
+     * @return the value of the assignment
+     */
+    my.GetAnswerImage = function (i) {
+        const j = i - 1;
+        const result = answerImages[j];
+        return result;
+    }
+    
+    
+    /**
+     * Sets the assignment text of square 'i' to the given text, where
+     * i is in the interval [1, 12].
+     *
+     * @param i
+     *      the index of the assignment (in the range [1, 12]).
+     * @param text
+     *      the value for the assignemnt.
+     */
     my.SetAnswerText = function (i, text)  {
         const j = i - 1;
         const oldAnswer = answerTexts[j];
         answerTexts[j] = text;
         
         if (oldAnswer !== text) {
-            Drawing.drawAnswer(i);
+            Drawing.DrawAnswer(i);
         }
     };
     

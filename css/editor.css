@@ -6,9 +6,13 @@
     overflow: auto;    
 }
 
+@media print {
+    #editor {
+        display: none;
+    }
+}
+
 form {
-    /*display: grid;
-    /*grid-template-columns: auto auto;*/
 }
 
 fieldset {

@@ -118,34 +118,43 @@ const Drawing = (function () {
      * Recalculates the size of the canvas.
      */
     const Layout = function () {
+        const style = window.getComputedStyle(preview);
+        const left = parseFloat(style.paddingLeft || 0);
+        const right = parseFloat(style.paddingRight || 0);
+        const top = parseFloat(style.paddingTop || 0);
+        const bottom = parseFloat(style.paddingBottom || 0);
+        
+        const pw = preview.clientWidth - left - right;
+        const ph = preview.clientHeight - top -bottom;
+              
         const bounds = preview.getBoundingClientRect();
-        const ratio = bounds.width / bounds.height;
+        const ratio = pw / ph;
         const scale = window.devicePixelRatio || 1;
         
         if (ratio > canvasRatio) {
-            const h = bounds.height * 0.95;
-            canvas.width = Math.round(h * canvasRatio * scale);
-            canvas.height = Math.round(h * scale);
+            const h = Math.floor(ph);
+            canvas.width = Math.floor(h * canvasRatio * scale);
+            canvas.height = Math.floor(h * scale);
             
-            canvas.style.width = Math.round(h * canvasRatio) + "px";
-            canvas.style.height = Math.round(h) + "px";
+            canvas.style.width = Math.floor(h * canvasRatio) + "px";
+            canvas.style.height = Math.floor(h) + "px";
         } else {
-            const w = bounds.width * 0.95;
+            const w = Math.floor(pw);
             canvas.width = Math.round(w * scale);
             canvas.height = Math.round(w * scale / canvasRatio);
             
-            canvas.style.width = Math.round(w) + "px";
-            canvas.style.height = Math.round(w / canvasRatio) + "px";
+            canvas.style.width = Math.floor(w) + "px";
+            canvas.style.height = Math.floor(w / canvasRatio) + "px";
         }
         
         /* size calculations*/
         width = canvas.width;
         height = canvas.height;
-        squareSize = Math.round(width * widthRadio);
-        titleHeight = Math.round(height * titleRatio);
-        titleWidth = Math.round(3 * titleHeight);
-        spacing = Math.round((height - 4 * squareSize - titleHeight) * 0.25);
-        context.translate(0.5, 0.5); // anti-alias bug
+        squareSize = Math.floor(width * widthRadio);
+        titleHeight = Math.floor(height * titleRatio);
+        titleWidth = Math.floor(3 * titleHeight);
+        spacing = Math.floor((height - 4 * squareSize - titleHeight) * 0.25);
+        context.translate(-0.5, -0.5); // anti-alias bug
     };
     
     /*
@@ -160,10 +169,10 @@ const Drawing = (function () {
         context.strokeStyle = "black";
         context.lineWidth = 1;
         context.alpha = 1;
-        context.fillRect(0, 0, width, height);
+        context.fillRect(0, 0, width + 1, height + 1);
         
         /* draw the border*/
-        context.strokeRect(0, 0, width - 1, height - 1);
+        //context.strokeRect(0, 0, width - 1, height - 1);
         
         /* draw the title */
         {
@@ -182,6 +191,7 @@ const Drawing = (function () {
         /* draw the assignments */
         for(let i = 1; i <= 12; ++i) {
             my.DrawAssignment(i);
+            my.DrawAnswer(i);
         }
     };
     
@@ -302,7 +312,7 @@ const Drawing = (function () {
         const j = i - 1;
         const squareX = Math.round((width - 6.0 * squareSize) * 0.5 + (j % 6) * squareSize);
         const squareY = Math.round(spacing + (j < 6 ? 0 : 1) * squareSize);
-        const indexSize = Math.round(squareSize * 0.15);
+        const indexSize = Math.round(squareSize * 0.2);
         const margin = Math.round(squareSize * 0.05);
               
         /**********************************************************************
@@ -333,54 +343,70 @@ const Drawing = (function () {
         const image = MiniLoco.GetAssignmentImage(i);
         
         if (image) {
-            DrawImageInside(image, squareX, squareY + indexSize, squareSize, squareSize - indexSize, margin);
+            DrawImageInside(image, squareX, squareY + indexSize, squareSize, squareSize - indexSize, 0);
             
             // check whether there is text to draw
             if (text && text !== "") {
-                DrawTextInside(text, "black", squareX + indexSize, squareY, squareSize - 2 * indexSize, indexSize, 0);
+                DrawTextInside(text, "black", squareX + indexSize, squareY, squareSize - indexSize, indexSize, 0);
             }
         }
         else {
             // check whether there is text to draw
             if (text && text !== "") {
-                DrawTextInside(text, "black", squareX, squareY + indexSize, squareSize, squareSize - indexSize, margin);
+                DrawTextInside(text, "black", squareX, squareY + indexSize, squareSize, squareSize - indexSize, 0);
             }
         }
     }
     
-    /*const drawSquare = function (type, context, x, y, size, index) {
+    /*
+     * Redraws the square containing assignment 'i'.
+     * 
+     * @param i
+     *      the index of the assignment to redraw.
+     */
+    my.DrawAnswer = function(i) {
+        const j = i - 1;
+        const squareX = Math.round((width - 6.0 * squareSize) * 0.5 + (j % 6) * squareSize);
+        const squareY = Math.round(height - spacing - (j < 6 ? 2 : 1) * squareSize);
+        const indexSize = Math.round(squareSize * 0.2);
+        const margin = Math.round(squareSize * 0.05);
+              
+        /**********************************************************************
+         * Draw the square itself
+         *********************************************************************/
+        
+        context.clearRect(squareX, squareY, squareSize, squareSize);
+        context.fillStyle = "white";
         context.strokeStyle = "black";
-        context.lineWidth = "1";
-        context.strokeRect(x, y, size, size);
-
-        const textId = type + "-" + index;
-        const textElement = document.getElementById(type + "-" + index);
-        if (!textElement) {
-            return;
+        context.lineWidth = 1;
+        context.alpha = 1;
+        context.fillRect(squareX, squareY, squareSize, squareSize);
+        context.strokeRect(squareX, squareY, squareSize, squareSize);
+       
+        /**********************************************************************
+         * Draw the image
+         *********************************************************************/
+        
+        const text = MiniLoco.GetAnswerText(i);
+        const image = MiniLoco.GetAnswerImage(i);
+        
+        if (image) {
+            
+            // check whether there is text to draw
+            if (text && text !== "") {
+                DrawTextInside(text, "black", squareX, squareY, squareSize, indexSize, 0);
+                DrawImageInside(image, squareX, squareY + indexSize, squareSize, squareSize - indexSize, 0);
+            } else {
+                DrawImageInside(image, squareX, squareY, squareSize, squareSize, margin);
+            }
         }
-        const text = textElement.value;
-        if (!text || text === "")
-            return;
-        
-        const fontSize = Math.round(10 * size);
-        context.font = fontSize + "px " + font;
-        
-        const xScale = 0.9 * size / context.measureText(text).width;
-        const yScale = 7.5;
-        const scale = Math.min(xScale, yScale);
-        const scaledFontSize = Math.min(size * 0.75, Math.floor(fontSize * scale));
-
-        context.font = scaledFontSize + "px " + font;
-    
-        const textWidth = context.measureText(text).width;
-        const xOffset = Math.round(x + size * 0.5);
-        const yOffset = Math.round(y + size * 0.5);
-        
-        context.fillStyle = "black";
-        context.textBaseline = "middle";
-        context.textAlign = "center";
-        context.fillText(text, xOffset, yOffset);        
-    };*/
+        else {
+            // check whether there is text to draw
+            if (text && text !== "") {
+                DrawTextInside(text, "black", squareX, squareY, squareSize, squareSize, 0);
+            }
+        }
+    }
     
     my.update = function () {
         Layout();
@@ -389,13 +415,6 @@ const Drawing = (function () {
     return my;
 }());
 
-(function() {
-    // attach the listeners
-    /*for(let i = 1; i <= 12; ++i) {
-        document.getElementById("assignment-" + i).addEventListener("input", Drawing.update);
-        document.getElementById("answer-" + i).addEventListener("input", Drawing.update);
-    }*/
-}());
 
 Drawing.update();
 window.addEventListener("resize", Drawing.update);
