@@ -1,12 +1,12 @@
 {
-    "name": "pocoloco",
-    "short_name": "pocoloco",
+    "name": "Poco Loco",
+    "short_name": "Poco Loco",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "description": "A utility program to make custom Mini Loco's for use by Speech Therapists.",
+    "orientation": "landscape-primary",
     "prefer_related_applications": false,
     "icons": [
         {
